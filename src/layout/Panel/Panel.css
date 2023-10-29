@@ -1,0 +1,7 @@
+.panel {
+    width: auto;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
