@@ -1,19 +1,19 @@
 import Button from '../Button/Button';
 import './JournalForm.css';
 
-const JournalForm = () => {
-    const addJournalItem = (e) => {
+const JournalForm = ({ addJournalItem }) => {
+    const addJournalItemHandler = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const formProps = Object.fromEntries(formData);
-        console.log(formProps);
+        addJournalItem(formProps);
     };
     return (
-        <form onSubmit={addJournalItem} className='journal-form'>
+        <form onSubmit={addJournalItemHandler} className='journal-form'>
             <input name='title' type='text' />
             <input name='date' type='date' />
             <input name='tag' type='text' />
-            <textarea type='text' name='post' />
+            <textarea name='description' type='text' />
             <Button text='Сохранить' />
         </form>
     );

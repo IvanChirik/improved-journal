@@ -3,12 +3,12 @@ import JournalAddButton from '../../components/JournalAddButton/JournalAddButton
 import JournalItems from '../../components/JournalItems/JournalItems';
 import './Panel.css';
 
-const Panel = () => {
+const Panel = ({ journalList }) => {
     return (
         <div className='panel'>
             <Header />
             <JournalAddButton />
-            <JournalItems />
+            <JournalItems journalList={journalList} />
         </div>
     );
 };

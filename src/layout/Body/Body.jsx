@@ -1,10 +1,10 @@
 import JournalForm from '../../components/JournalForm/JournalForm';
 import './Body.css';
 
-const Body = () => {
+const Body = ({ addJournalItem }) => {
     return (
         <div className='body'>
-            <JournalForm />
+            <JournalForm addJournalItem={addJournalItem} />
         </div>
     );
 };

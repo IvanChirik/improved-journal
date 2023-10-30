@@ -1,23 +1,17 @@
 import JournalItem from '../JournalItem/JournalItem';
 import './JournalItems.css';
 
-
-const items = [{
-    title: 'Поход',
-    date: new Date(),
-    description: 'Я был в лесу'
-},
-{
-    title: 'Путеществие',
-    date: new Date(),
-    description: 'Летали в грузию на дирижабле'
-}
-];
-const JournalItems = () => {
+const JournalItems = ({ journalList }) => {
+    if (journalList.length === 0) {
+        return <p>Записи в журнале отсутствуют</p>;
+    }
+    const sortJournal = (list) => {
+        return list.sort((a, b) => (a.date < b.date) ? 1 : -1);
+    };
     return <div className='journal-list'>{
-        items.map(item =>
+        sortJournal(journalList).map(item =>
             <JournalItem
-                key={item.title}
+                key={item.id}
                 title={item.title}
                 date={item.date}
                 description={item.description}
