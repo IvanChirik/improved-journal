@@ -1,0 +1,43 @@
+.journal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.title {
+    border: none;
+    background: none;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    border-bottom: 1px solid rgb(75, 73, 73);
+    outline: none;
+}
+
+.date {
+    border: none;
+    background: none;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.tag {
+    border: none;
+    background: none;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.description {
+    border: none;
+    background: none;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+}

@@ -1,5 +1,5 @@
 import Button from '../Button/Button';
-import './JournalForm.css';
+import styles from './JournalForm.module.css';
 
 const JournalForm = ({ addJournalItem }) => {
     const addJournalItemHandler = (e) => {
@@ -9,11 +9,11 @@ const JournalForm = ({ addJournalItem }) => {
         addJournalItem(formProps);
     };
     return (
-        <form onSubmit={addJournalItemHandler} className='journal-form'>
-            <input name='title' type='text' />
-            <input name='date' type='date' />
-            <input name='tag' type='text' />
-            <textarea name='description' type='text' />
+        <form onSubmit={addJournalItemHandler} className={styles['journal-form']}>
+            <div><input name='title' type='text' className={styles.title} /></div>
+            <input name='date' type='date' className={styles.date} />
+            <input name='tag' type='text' className={styles.tag} />
+            <textarea name='description' type='text' className={styles.description} />
             <Button text='Сохранить' />
         </form>
     );
