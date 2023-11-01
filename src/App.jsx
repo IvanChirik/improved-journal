@@ -1,23 +1,21 @@
 import './App.css';
 import Body from './layout/Body/Body';
 import Panel from './layout/Panel/Panel';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const INITIAL_JOURNAL = [{
-  id: 1,
-  title: 'Поход',
-  date: new Date(),
-  description: 'Я был в лесу'
-},
-{
-  id: 2,
-  title: 'Путеществие',
-  date: new Date(),
-  description: 'Летали в грузию на дирижабле'
-}
-];
 function App() {
-  const [journalList, setJournalList] = useState(INITIAL_JOURNAL);
+  const [journalList, setJournalList] = useState([]);
+  useEffect(() => {
+    const localJournal = JSON.parse(localStorage.getItem('journal'));
+    if (localJournal) {
+      setJournalList(localJournal.map(item => ({ ...item, date: new Date(item.date) })));
+    }
+  }, []);
+  useEffect(() => {
+    if (journalList.length) {
+      localStorage.setItem('journal', JSON.stringify(journalList));
+    }
+  }, [journalList]);
   const addJournalItem = (item) => {
     setJournalList(prevState => [...prevState, {
       id: prevState.length + 1,

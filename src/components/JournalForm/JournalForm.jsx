@@ -13,9 +13,14 @@ const JournalForm = ({ addJournalItem }) => {
     const [isFormFieldsValid, setIsFormFieldsValid] = useState(INITIAL_FORM_STATE);
     useEffect(() => {
         if (!isFormFieldsValid.title || !isFormFieldsValid.date || !isFormFieldsValid.tag || !isFormFieldsValid.description) {
-            setTimeout(() => { }, 2000);
+            const timer = setTimeout(() => {
+                setIsFormFieldsValid(INITIAL_FORM_STATE);
+            }, 2000);
+            return () => {
+                clearTimeout(timer);
+            };
         }
-    }, []);
+    }, [isFormFieldsValid]);
     const addJournalItemHandler = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -70,7 +75,7 @@ const JournalForm = ({ addJournalItem }) => {
                 </label>
                 <input name='tag' type='text' id='tag' className={styles.input} />
             </div>
-            <textarea name='description' rows='30' type='text' className={styles.input} />
+            <textarea name='description' rows='20' type='text' className={cn(styles.input, styles.text)} />
             <Button text='Сохранить' className={styles['save-button']} />
         </form >
     );
