@@ -1,7 +1,8 @@
-import './Button.css';
-const Button = ({ text }) => {
+import styles from './Button.module.css';
+import cn from 'classnames';
+const Button = ({ text, className }) => {
     return (
-        <button className='button accent'>{text}</button>
+        <button className={cn(styles.button, styles.accent, className)}>{text}</button>
     );
 };
 

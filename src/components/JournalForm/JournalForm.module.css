@@ -5,6 +5,22 @@
 }
 
 .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-icon {
+    padding: 1px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    border: 1px solid #5c5555;
+}
+
+.input-title {
     border: none;
     background: none;
     font-size: 32px;
@@ -15,22 +31,22 @@
     outline: none;
 }
 
-.date {
-    border: none;
-    background: none;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+.form-row {
+    display: flex;
+    gap: 50px;
+    border-bottom: 1px solid rgb(75, 73, 73);
+    padding-bottom: 15px;
 }
 
-.tag {
+.input {
     border: none;
     background: none;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    outline: none;
+    width: 100%;
 }
 
 .description {
@@ -40,4 +56,24 @@
     font-style: normal;
     font-weight: 400;
     line-height: 28px;
+    outline: none;
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    min-width: 150px;
+}
+
+.save-button {
+    width: 250px
+}
+
+.invalid {
+    border-bottom-color: rgb(161, 66, 66);
 }
