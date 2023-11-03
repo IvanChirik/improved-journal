@@ -2,14 +2,13 @@ export const INITIAL_STATE = {
     isValid: {
         title: true,
         date: true,
-        tag: true,
         description: true
     },
-    value: {
-        title: undefined,
-        date: undefined,
-        tag: undefined,
-        description: undefined
+    values: {
+        title: '',
+        date: '',
+        tag: '',
+        description: ''
     },
     isFormSubmitValid: false
 };
@@ -19,22 +18,26 @@ export const setFormState = (state, action) => {
             return {
                 ...state, isValid: INITIAL_STATE.isValid
             };
+        // case 'SET_VALUE': return {
+        //     ...state, values: { ...state.values, ...action.payload }
+        // };
         case 'SUBMIT': {
             const titleData = action.payload?.title?.trim().length;
-            const dateData = action.payload?.date;
+            const dateData = action.payload.date;
             const descriptionData = action.payload?.description?.trim().length;
-            console.log(titleData);
-            if (titleData && dateData && descriptionData)
-                return {
-                    value: action.payload,
-                    isValid: {
-                        title: true,
-                        date: true,
-                        description: true,
-                        tag: true
-                    },
-                    isFormSubmitValid: titleData && dateData && descriptionData
-                };
+            return {
+                values: action.payload,
+                isValid: {
+                    title: titleData,
+                    date: dateData,
+                    description: descriptionData
+                },
+                isFormSubmitValid: titleData && dateData && descriptionData
+            };
         }
+        // case 'CLEAR':
+        //     return { ...state, values: INITIAL_STATE.values };
+        default:
+            return INITIAL_STATE;
     }
 };

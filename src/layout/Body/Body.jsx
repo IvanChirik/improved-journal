@@ -1,9 +1,9 @@
 import JournalForm from '../../components/JournalForm/JournalForm';
-import './Body.css';
+import styles from './Body.module.css';
 
 const Body = ({ addJournalItem }) => {
     return (
-        <div className='body'>
+        <div className={styles.body}>
             <JournalForm addJournalItem={addJournalItem} />
         </div>
     );

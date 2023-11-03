@@ -1,5 +1,5 @@
 import JournalItem from '../JournalItem/JournalItem';
-import './JournalItems.css';
+import styles from './JournalItems.module.css';
 
 const JournalItems = ({ journalList }) => {
     if (journalList.length === 0) {
@@ -8,7 +8,7 @@ const JournalItems = ({ journalList }) => {
     const sortJournal = (list) => {
         return list.sort((a, b) => (a.date < b.date) ? 1 : -1);
     };
-    return <div className='journal-list'>{
+    return <div className={styles['journal-list']}>{
         sortJournal(journalList).map(item =>
             <JournalItem
                 key={item.id}

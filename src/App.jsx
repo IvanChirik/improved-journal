@@ -1,4 +1,4 @@
-import './App.css';
+import styles from './App.module.css';
 import Body from './layout/Body/Body';
 import Panel from './layout/Panel/Panel';
 import { useEffect, useState } from 'react';
@@ -24,7 +24,7 @@ function App() {
       description: item.description
     }]);
   };
-  return <div className='app'>
+  return <div className={styles.app}>
     <Panel journalList={journalList} />
     <Body addJournalItem={addJournalItem} />
   </div>;

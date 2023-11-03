@@ -6,10 +6,11 @@ import { INITIAL_STATE, setFormState } from './JournalForm.state';
 
 const JournalForm = ({ addJournalItem }) => {
     const [formState, dispatchForm] = useReducer(setFormState, INITIAL_STATE);
-    const { isValid, value, isFormSubmitValid } = formState;
+    const { isValid, values, isFormSubmitValid } = formState;
     useEffect(() => {
-        if (!isValid.title || !isValid.date || !isValid.tag || !isValid.description) {
-            const timer = setTimeout(() => {
+        let timer;
+        if (!isValid.title || !isValid.date || !isValid.description) {
+            timer = setTimeout(() => {
                 dispatchForm({ type: 'RESET_VALIDATION' });
             }, 2000);
             return () => {
@@ -19,15 +20,19 @@ const JournalForm = ({ addJournalItem }) => {
     }, [isValid]);
     useEffect(() => {
         if (isFormSubmitValid) {
-            addJournalItem(value);
+            addJournalItem(values);
+            dispatchForm({ type: 'CLEAR' });
         }
-    }, [isFormSubmitValid]);
+    }, [isFormSubmitValid, values]);
     const addJournalItemHandler = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const formProps = Object.fromEntries(formData);
         dispatchForm({ type: 'SUBMIT', payload: formProps });
     };
+    // const changeValues = (e) => {
+    //     dispatchForm({ type: 'SET_VALUE', payload: { [e.target.name]: e.target.value } });
+    // };
     return (
         <form onSubmit={addJournalItemHandler} className={styles['journal-form']}>
             <div className={styles.title}>
@@ -44,9 +49,7 @@ const JournalForm = ({ addJournalItem }) => {
                     <span>Дата</span></label>
                 <input name='date' type='date' id='date' className={styles.input} />
             </div>
-            <div className={cn(styles['form-row'], {
-                [styles['invalid']]: !isValid.tag
-            })}>
+            <div className={cn(styles['form-row'])}>
                 <label htmlFor='tag' className={styles['form-label']}>
                     <img src='folder.svg' alt='Иконка тега' />
                     <span>Метки</span>
