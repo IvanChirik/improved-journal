@@ -22,9 +22,9 @@ export const setFormState = (state, action) => {
             ...state, values: { ...state.values, ...action.payload }
         };
         case 'SUBMIT': {
-            const titleData = action.payload?.title?.trim().length;
-            const dateData = action.payload.date;
-            const descriptionData = action.payload?.description?.trim().length;
+            const titleData = state.values.title?.trim().length;
+            const dateData = state.values.date;
+            const descriptionData = state.values.description?.trim().length;
             return {
                 ...state,
                 isValid: {
@@ -36,7 +36,7 @@ export const setFormState = (state, action) => {
             };
         }
         case 'CLEAR':
-            return { ...state, values: INITIAL_STATE.values };
+            return { ...state, isFormSubmitValid: INITIAL_STATE.isFormSubmitValid, values: INITIAL_STATE.values };
         default:
             return INITIAL_STATE;
     }
