@@ -23,12 +23,10 @@ const JournalForm = ({ addJournalItem }) => {
             addJournalItem(values);
             dispatchForm({ type: 'CLEAR' });
         }
-    }, [isFormSubmitValid]);
+    }, [isFormSubmitValid, values, addJournalItem]);//Remove addJournalItem, values
     const addJournalItemHandler = (e) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const formProps = Object.fromEntries(formData);
-        dispatchForm({ type: 'SUBMIT', payload: formProps });
+        dispatchForm({ type: 'SUBMIT' });
     };
     const changeValues = (e) => {
         dispatchForm({ type: 'SET_VALUE', payload: { [e.target.name]: e.target.value } });
