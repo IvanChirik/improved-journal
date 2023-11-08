@@ -3,12 +3,12 @@ import JournalAddButton from '../../components/JournalAddButton/JournalAddButton
 import JournalItems from '../../components/JournalItems/JournalItems';
 import styles from './Panel.module.css';
 
-const Panel = ({ journalList }) => {
+const Panel = ({ journalList, selectItem }) => {
     return (
         <div className={styles.panel}>
             <Header />
             <JournalAddButton />
-            <JournalItems journalList={journalList} />
+            <JournalItems journalList={journalList} selectItem={selectItem} />
         </div>
     );
 };

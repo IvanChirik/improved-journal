@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [journalList, setJournalList] = useState([]);
+  const [selectItem, setSelectItem] = useState({});
   useEffect(() => {
     const localJournal = JSON.parse(localStorage.getItem('journal'));
     if (localJournal) {
@@ -16,17 +17,22 @@ function App() {
       localStorage.setItem('journal', JSON.stringify(journalList));
     }
   }, [journalList]);
+
   const addJournalItem = (item) => {
-    setJournalList(prevState => [...prevState, {
-      id: prevState.length + 1,
-      title: item.title,
-      date: new Date(item.date),
-      description: item.description
-    }]);
+    console.log(item);
+    if (!item.id) {
+      setJournalList(prevState => [...prevState, {
+        id: prevState.length + 1,
+        title: item.title,
+        date: new Date(item.date),
+        description: item.description
+      }]);
+    }
+
   };
   return <div className={styles.app}>
-    <Panel journalList={journalList} />
-    <Body addJournalItem={addJournalItem} />
+    <Panel journalList={journalList} selectItem={setSelectItem} />
+    <Body addJournalItem={addJournalItem} data={selectItem} />
   </div>;
 
 }

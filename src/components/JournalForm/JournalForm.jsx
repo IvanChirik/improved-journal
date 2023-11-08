@@ -5,7 +5,7 @@ import styles from './JournalForm.module.css';
 import cn from 'classnames';
 import { INITIAL_STATE, setFormState } from './JournalForm.state';
 
-const JournalForm = ({ addJournalItem }) => {
+const JournalForm = ({ addJournalItem, data }) => {
     const [formState, dispatchForm] = useReducer(setFormState, INITIAL_STATE);
     const { isValid, values, isFormSubmitValid } = formState;
     const titleRef = useRef();
@@ -44,6 +44,9 @@ const JournalForm = ({ addJournalItem }) => {
             dispatchForm({ type: 'CLEAR' });
         }
     }, [isFormSubmitValid, values, addJournalItem]);//Remove addJournalItem, values
+    useEffect(() => {
+        dispatchForm({ type: 'SET_VALUE', payload: { ...data, date: (!data.date && ' ') || data.date.toISOString().slice(0, 10) } });
+    }, [data]);
     const addJournalItemHandler = (e) => {
         e.preventDefault();
         dispatchForm({ type: 'SUBMIT' });

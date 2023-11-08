@@ -3,9 +3,9 @@ import formatDateToLocale from '../../../helpers/formatDateToLocale';
 import CardButton from '../CardButton/CardButton';
 
 
-const JournalItem = ({ title, date, description }) => {
+const JournalItem = ({ title, date, description, ...props }) => {
     return (
-        <CardButton>
+        <CardButton {...props}>
             <h2 className={styles['journal-item__header']}>{title}</h2>
             <div className={styles['journal-item__body']}>
                 <div className={styles['journal-item__date']}>{formatDateToLocale('ru-RU', date)}</div>
