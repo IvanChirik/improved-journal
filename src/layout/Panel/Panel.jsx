@@ -7,7 +7,7 @@ const Panel = ({ journalList, selectItem }) => {
     return (
         <div className={styles.panel}>
             <Header />
-            <JournalAddButton />
+            <JournalAddButton selectItem={selectItem} />
             <JournalItems journalList={journalList} selectItem={selectItem} />
         </div>
     );

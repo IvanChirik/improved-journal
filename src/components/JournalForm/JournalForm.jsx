@@ -5,12 +5,13 @@ import styles from './JournalForm.module.css';
 import cn from 'classnames';
 import { INITIAL_STATE, setFormState } from './JournalForm.state';
 
-const JournalForm = ({ addJournalItem, data }) => {
+const JournalForm = ({ addJournalItem, data, deleteSelectItem }) => {
     const [formState, dispatchForm] = useReducer(setFormState, INITIAL_STATE);
     const { isValid, values, isFormSubmitValid } = formState;
     const titleRef = useRef();
     const dateRef = useRef();
     const descriptionRef = useRef();
+    const tagRef = useRef();
     const focusInput = (isValid) => {
         switch (true) {
             case !isValid.title:
@@ -45,8 +46,19 @@ const JournalForm = ({ addJournalItem, data }) => {
         }
     }, [isFormSubmitValid, values, addJournalItem]);//Remove addJournalItem, values
     useEffect(() => {
-        dispatchForm({ type: 'SET_VALUE', payload: { ...data, date: (!data.date && ' ') || data.date.toISOString().slice(0, 10) } });
+        if (data.title) {
+            dispatchForm({ type: 'SET_VALUE', payload: { ...data, date: data.date.toISOString().slice(0, 10) } });
+        }
+        else {
+            dispatchForm({ type: 'CLEAR' });
+            titleRef.current.focus();
+        }
     }, [data]);
+    const deleteHandler = (e) => {
+        e.preventDefault();
+        deleteSelectItem(formState.values.id);
+        dispatchForm({ type: 'CLEAR' });
+    };
     const addJournalItemHandler = (e) => {
         e.preventDefault();
         dispatchForm({ type: 'SUBMIT' });
@@ -66,7 +78,7 @@ const JournalForm = ({ addJournalItem, data }) => {
                     value={values.title}
                     apperence={'title'}
                 />
-                <div className={styles['card-icon']}><img src='card.svg' alt='Иконка корзины' /></div>
+                {data.id && <button onClick={deleteHandler} className={styles['card-icon']}><img src='card.svg' alt='Иконка корзины' /></button>}
             </div>
             <div className={cn(styles['form-row'], {
                 [styles['invalid']]: !isValid.date
@@ -90,6 +102,7 @@ const JournalForm = ({ addJournalItem, data }) => {
                 <Input
                     name='tag'
                     type='text'
+                    ref={tagRef}
                     id='tag'
                     onChange={changeValues}
                     value={values.tag} />
@@ -103,7 +116,7 @@ const JournalForm = ({ addJournalItem, data }) => {
                 className={cn(styles.input, styles.text, {
                     [styles['invalid']]: !isValid.description
                 })} />
-            <Button text='Сохранить' className={styles['save-button']} />
+            <Button className={styles['save-button']}>Сохранить</Button>
         </form >
     );
 };

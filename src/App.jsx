@@ -17,22 +17,35 @@ function App() {
       localStorage.setItem('journal', JSON.stringify(journalList));
     }
   }, [journalList]);
-
   const addJournalItem = (item) => {
-    console.log(item);
     if (!item.id) {
       setJournalList(prevState => [...prevState, {
-        id: prevState.length + 1,
+        id: journalList.length > 0 ? Math.max(...journalList.map(i => i.id)) + 1 : 1,
         title: item.title,
+        tag: item.tag,
         date: new Date(item.date),
         description: item.description
       }]);
     }
-
+    else {
+      setJournalList(journalList.map(i => {
+        if (item.id === i.id) {
+          return { ...item, date: new Date(item.date) };
+        }
+        return i;
+      }));
+    }
+  };
+  const deleteSelectItem = (id) => {
+    const filtredJournal = journalList.filter(item => item.id !== id);
+    console.log(filtredJournal.length);
+    if (filtredJournal.length)
+      setJournalList(filtredJournal);
+    localStorage.setItem('journal', JSON.stringify(filtredJournal));
   };
   return <div className={styles.app}>
     <Panel journalList={journalList} selectItem={setSelectItem} />
-    <Body addJournalItem={addJournalItem} data={selectItem} />
+    <Body addJournalItem={addJournalItem} data={selectItem} deleteSelectItem={deleteSelectItem} />
   </div>;
 
 }

@@ -1,8 +1,8 @@
 import styles from './Button.module.css';
 import cn from 'classnames';
-const Button = ({ text, className }) => {
+const Button = ({ children, className }) => {
     return (
-        <button className={cn(styles.button, styles.accent, className)}>{text}</button>
+        <button className={cn(styles.button, styles.accent, className)}>{children}</button>
     );
 };
 
