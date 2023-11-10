@@ -38,14 +38,19 @@ function App() {
   };
   const deleteSelectItem = (id) => {
     const filtredJournal = journalList.filter(item => item.id !== id);
-    console.log(filtredJournal.length);
-    if (filtredJournal.length)
-      setJournalList(filtredJournal);
+    setJournalList(filtredJournal);
     localStorage.setItem('journal', JSON.stringify(filtredJournal));
+
   };
   return <div className={styles.app}>
-    <Panel journalList={journalList} selectItem={setSelectItem} />
-    <Body addJournalItem={addJournalItem} data={selectItem} deleteSelectItem={deleteSelectItem} />
+    <Panel
+      journalList={journalList}
+      selectItem={setSelectItem} />
+    <Body
+      addJournalItem={addJournalItem}
+      data={selectItem}
+      deleteSelectItem={deleteSelectItem}
+      selectItem={setSelectItem} />
   </div>;
 
 }

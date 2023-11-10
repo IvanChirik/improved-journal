@@ -5,7 +5,7 @@ import styles from './JournalForm.module.css';
 import cn from 'classnames';
 import { INITIAL_STATE, setFormState } from './JournalForm.state';
 
-const JournalForm = ({ addJournalItem, data, deleteSelectItem }) => {
+const JournalForm = ({ addJournalItem, data, deleteSelectItem, selectItem }) => {
     const [formState, dispatchForm] = useReducer(setFormState, INITIAL_STATE);
     const { isValid, values, isFormSubmitValid } = formState;
     const titleRef = useRef();
@@ -57,6 +57,7 @@ const JournalForm = ({ addJournalItem, data, deleteSelectItem }) => {
     const deleteHandler = (e) => {
         e.preventDefault();
         deleteSelectItem(formState.values.id);
+        selectItem({});
         dispatchForm({ type: 'CLEAR' });
     };
     const addJournalItemHandler = (e) => {
@@ -89,6 +90,7 @@ const JournalForm = ({ addJournalItem, data, deleteSelectItem }) => {
                 <Input
                     name='date'
                     type='date'
+                    min='01-01-2000'
                     ref={dateRef}
                     onChange={changeValues}
                     value={values.date}
